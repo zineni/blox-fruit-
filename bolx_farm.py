@@ -9,6 +9,7 @@ mastery_new_lvl = 70
 master = 0
 mastery_now_lvl = 68
 mob_boss = 0
+
 mastery_mob_kill = {"gelley_captain": 0,
                     "royal_soldier": 0,
                     "royal_squa": 0}
@@ -31,13 +32,42 @@ lvl_kill = {}
 mob_sea_1 = {"gelley captain": random.randint(22000,25000),
              "royal_soldier": random.randint(20000,25000),
              "royal_squa": random.randint(17000,22000)
-             }
+            }
+
 boss_sea_1 = {"cyborg": random.randint(150000,180000),
               "thunder_god": random.randint(100000,150000),
               "wysper": random.randint(85000,90000)
              }
 
+mob_sea_2 = {"water_fighter": random.randint(65000,75000),
+             "sea_soldier": random.randint(65000,70000),
+             "snow_lurker": random.randint(63000,70000)
+            }
 
+mastery_mob_kill_sea_2 = {"water_fighter": 0,
+                          "sea_soldier": 0,
+                          "snow_lurker": 0
+                    }
+
+mob_kill_sea_2 = {"water_fighter": 0,
+                  "sea_soldier": 0,
+                  "snow_lurker": 0
+                  }
+
+boss_sea_2 = {"ice_admiral": random.randint(900000,950000),
+              "tide_keeper": random.randint(850000,900000),
+              "smoke_admiral": random.randint(80000,90000)
+              }
+
+mastery_boss_kill_sea_2 = {"ice_admiral": 0,
+                           "tide_keeper": 0,
+                           "smoke_admiral": 0
+                           }
+
+boss_kill_sea_2 = {"ice_admiral": 0,
+                   "tide_keeper": 0,
+                   "smoke_admiral": 0
+                   }
 
 class FourWindow(QWidget):
     def __init__(self):
@@ -160,6 +190,47 @@ class FourWindow(QWidget):
                         mastery_boss_kill["wysper"] -= now_lvl()
                         lvl_kill["wysper"] += 1
 
+        def mastery_lvl_sea_2():
+            global mastery_mob_kill_sea_2
+            global lvl
+            global lvl_kill
+            global mob_sea_2
+            global mob_kill_sea_2
+
+            lvl_kill["water_fighter"] = int(lvl)
+            lvl_kill["sea_soldier"] = int(lvl)
+            lvl_kill["snow_lurker"] = int(lvl)
+
+            while int(lvl_kill["water_fighter"]) <= 700:
+
+                if int(mastery_mob_kill_sea_2["water_fighter"]) < now_lvl():
+                    mastery_mob_kill_sea_2["water_fighter"] += mob_sea_2["water_fighter"]
+                    mob_kill_sea_2["water_fighter"] += 1
+
+                    if int(mastery_mob_kill_sea_2["water_fighter"]) >= now_lvl():
+                        mastery_mob_kill_sea_2["water_fighter"] -= now_lvl()
+                        lvl_kill["water_fighter"] += 1
+            
+            while int(lvl_kill["sea_soldier"]) <= 700:
+
+                if int(mastery_mob_kill_sea_2["sea_soldier"]) < now_lvl():
+                    mastery_mob_kill_sea_2["sea_soldier"] += mob_sea_2["sea_soldier"]
+                    mob_kill_sea_2["sea_soldier"] += 1
+
+                    if int(mastery_mob_kill_sea_2["sea_soldier"]) >= now_lvl():
+                        mastery_mob_kill_sea_2["sea_soldier"] -= now_lvl()
+                        lvl_kill["sea_soldier"] += 1
+            
+            while int(lvl_kill["snow_lurker"]) <= 700:
+
+                if int(mastery_mob_kill_sea_2["snow_lurker"]) < now_lvl():
+                    mastery_mob_kill_sea_2["snow_lurker"] += mob_sea_2["snow_lurker"]
+                    mob_kill_sea_2["snow_lurker"] += 1
+
+                    if int(mastery_mob_kill_sea_2["snow_lurker"]) >= now_lvl():
+                        mastery_mob_kill_sea_2["snow_lurker"] -= now_lvl()
+                        lvl_kill["snow_lurker"] += 1
+
         if sea == 1:
             if mob_boss == 1:
                 for i in mob_sea_1.keys():
@@ -179,6 +250,17 @@ class FourWindow(QWidget):
                     layout = QVBoxLayout()
                     self.setLayout(layout)
                     self.text = QLabel(f"Cyborg - {boss_kill_info['cyborg']} \nThunder God - {boss_kill_info['thunder_god']} \nWysper - {boss_kill_info['wysper']}")
+                    self.text.setFont(QFont('Arial', 10)) 
+                    layout.addWidget(self.text)
+
+        if sea == 2:
+            if mob_boss == 1:
+                for i in mob_sea_2.keys():
+                    mastery_lvl_sea_2()
+                    self.setWindowTitle("результаты")
+                    layout = QVBoxLayout()
+                    self.setLayout(layout)
+                    self.text = QLabel(f"water Fighter - {mob_kill_sea_2['water_fighter']} \nSea soldier - {mob_kill_sea_2['sea_soldier']} \nSnow Lurker - {mob_kill_sea_2['snow_lurker']}")
                     self.text.setFont(QFont('Arial', 10)) 
                     layout.addWidget(self.text)
 
@@ -243,7 +325,7 @@ class SecondWindow(QWidget):
         layout.addWidget(self.text)
         layout.addWidget(self.LE)
 
-        self.button = QPushButton("kill", self)
+        self.button = QPushButton("расчитываем mastery", self)
         self.button.clicked.connect(self.open_three_window)
         layout.addWidget(self.button)
 
@@ -312,3 +394,4 @@ if __name__ == "__main__":
     main_window = MainWindow()
     main_window.show()
     sys.exit(app.exec_())
+    
