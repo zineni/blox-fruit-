@@ -2,7 +2,7 @@ import sys
 import random
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-
+import time
 sea = 0
 lvl = 0 
 mastery_new_lvl = 70
@@ -311,6 +311,8 @@ def mastory_boss_sea_2():
             lvl_lok_3 += 1
             lvl_kill["smoke_admiral"] += 1
             lvl = str(lvl_lok_3)
+
+    return f"Tide Keeper - {boss_kill_sea_2["tide_keeper"]} \nIce Admiral - {boss_kill_sea_2["ice_admiral"]} \nSmoke Admiral - {boss_kill_sea_2["smoke_admiral"]}"
 
 class FourWindow(QWidget):
     def __init__(self):
