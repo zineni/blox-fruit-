@@ -17,15 +17,15 @@ mastery_mob_kill = {"gelley_captain": 0,
 mastery_boss_kill = {"cyborg": 0,
                      "thunder_god": 0,
                      "wysper": 0
-             }
+                    }
 
 kill_info = {"gelley_captain": 0,
             "royal_soldier": 0,
             "royal_squa": 0}
 
 boss_kill_info = {"cyborg": 0,
-            "thunder_god": 0,
-            "wysper": 0}
+                  "thunder_god": 0,
+                  "wysper": 0}
 
 lvl_kill = {}
 
@@ -155,6 +155,60 @@ def mastory_mob_sea_1():
 
     return f"Gelley Captain - {kill_info['gelley_captain']} \nRoyal Soldier - {kill_info['royal_soldier']} \nRoyal Squa - {kill_info['royal_squa']}"
 
+def mastory_boss_sea_1():
+    global mastery_boss_kill
+    global lvl
+    global lvl_kill
+    global boss_sea_1
+    global boss_kill_info
+
+    old_lvl = int(lvl)
+
+    lvl_lok_1 = int(lvl)
+    lvl_lok_2 = int(lvl)
+    lvl_lok_3 = int(lvl)
+
+    lvl_kill["cyborg"] = int(lvl)
+    lvl_kill["thunder_god"] = int(lvl)
+    lvl_kill["wysper"] = int(lvl)
+
+    while lvl_lok_1 <= 699:
+            if now_lvl() > mastery_boss_kill["cyborg"]:
+                mastery_boss_kill["cyborg"] += boss_sea_1["cyborg"]
+                boss_kill_info["cyborg"] += 1
+            else:
+                mastery_boss_kill["cyborg"] -= now_lvl()
+                lvl_lok_1 += 1
+                lvl_kill["cyborg"] += 1
+                lvl = str(lvl_lok_1)
+
+    lvl = old_lvl
+    
+    while lvl_lok_2 <= 699:
+        if now_lvl() > mastery_boss_kill["thunder_god"]:
+            mastery_boss_kill["thunder_god"] += boss_sea_1["thunder_god"]
+            boss_kill_info["thunder_god"] += 1
+        else:
+            mastery_boss_kill["thunder_god"] -= now_lvl()
+            lvl_lok_2 += 1
+            lvl_kill["thunder_god"] += 1
+            lvl = str(lvl_lok_2)
+    
+    lvl = old_lvl
+
+    while lvl_lok_3 <= 699:
+        if now_lvl() > mastery_boss_kill["wysper"]:
+            mastery_boss_kill["wysper"] += boss_sea_1["wysper"]
+            boss_kill_info["wysper"] += 1
+        else:
+            mastery_boss_kill["wysper"] -= now_lvl()
+            lvl_lok_3 += 1
+            lvl_kill["wysper"] += 1
+            lvl = str(lvl_lok_3)
+
+    return f"Cyborg - {boss_kill_info['cyborg']} \nThunder God - {boss_kill_info['thunder_god']} \nWysper - {boss_kill_info['wysper']}"
+
+
 class FourWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -166,7 +220,7 @@ class FourWindow(QWidget):
 
         layout = QVBoxLayout()
         self.setLayout(layout)
-        self.text = QLabel("")
+        self.text = QLabel(" ")
         self.text.setFont(QFont('Arial', 10)) 
         layout.addWidget(self.text)
 
@@ -175,15 +229,9 @@ class FourWindow(QWidget):
                 self.setWindowTitle("результаты")
                 self.text.setText(mastory_mob_sea_1())
 
-        #     if mob_boss == 2:
-        #         for i in boss_sea_1.keys():
-        #             boss_mastery_lvl_sea_1()
-        #             self.setWindowTitle("результаты")
-        #             layout = QVBoxLayout()
-        #             self.setLayout(layout)
-        #             self.text = QLabel(f"Cyborg - {boss_kill_info['cyborg']} \nThunder God - {boss_kill_info['thunder_god']} \nWysper - {boss_kill_info['wysper']}")
-        #             self.text.setFont(QFont('Arial', 10)) 
-        #             layout.addWidget(self.text)
+            if mob_boss == 2:
+                self.setWindowTitle("результаты")
+                self.text.setText(mastory_boss_sea_1())
 
         # if sea == 2:
         #     if mob_boss == 1:
