@@ -208,6 +208,109 @@ def mastory_boss_sea_1():
 
     return f"Cyborg - {boss_kill_info['cyborg']} \nThunder God - {boss_kill_info['thunder_god']} \nWysper - {boss_kill_info['wysper']}"
 
+def mastory_mob_sea_2():
+    global mastery_mob_kill_sea_2 
+    global lvl
+    global lvl_kill
+    global mob_sea_2
+    global mob_kill_sea_2
+
+    old_lvl = int(lvl)
+
+    lvl_kol_1 = int(lvl)
+    lvl_kol_2 = int(lvl)
+    lvl_kol_3 = int(lvl)
+
+    lvl_kill["water_fighter"] = int(lvl)
+    lvl_kill["sea_soldier"] = int(lvl)
+    lvl_kill["snow_lurker"] = int(lvl)
+
+    while lvl_kol_1 <= 699:
+            if now_lvl() > mastery_mob_kill_sea_2["water_fighter"]:
+                mastery_mob_kill_sea_2["water_fighter"] += mob_sea_2["water_fighter"]
+                mob_kill_sea_2["water_fighter"] += 1
+            else:
+                mastery_mob_kill_sea_2["water_fighter"] -= now_lvl()
+                lvl_kol_1 += 1
+                lvl_kill["water_fighter"] += 1
+                lvl = str(lvl_kol_1)
+
+    lvl = old_lvl
+    
+    while lvl_kol_2 <= 699:
+        if now_lvl() > mastery_mob_kill_sea_2["sea_soldier"]:
+            mastery_mob_kill_sea_2["sea_soldier"] += mob_sea_2["sea_soldier"]
+            mob_kill_sea_2["sea_soldier"] += 1
+        else:
+            mastery_mob_kill_sea_2["sea_soldier"] -= now_lvl()
+            lvl_kol_2 += 1
+            lvl_kill["sea_soldier"] += 1
+            lvl = str(lvl_kol_2)
+    
+    lvl = old_lvl
+
+    while lvl_kol_3 <= 699:
+        if now_lvl() > mastery_mob_kill_sea_2["snow_lurker"]:
+            mastery_mob_kill_sea_2["snow_lurker"] += mob_sea_2["snow_lurker"]
+            mob_kill_sea_2["snow_lurker"] += 1
+        else:
+            mastery_mob_kill_sea_2["snow_lurker"] -= now_lvl()
+            lvl_kol_3 += 1
+            lvl_kill["snow_lurker"] += 1
+            lvl = str(lvl_kol_3)
+
+    return f"Water Fighter - {mob_kill_sea_2['water_fighter']} \nSea Soldier - {mob_kill_sea_2['sea_soldier']} \nSnow Lurker - {mob_kill_sea_2['snow_lurker']}"
+
+def mastory_boss_sea_2():
+    global mastery_boss_kill_sea_2
+    global lvl
+    global lvl_kill
+    global boss_sea_2
+    global boss_kill_sea_2
+
+    old_lvl = int(lvl)
+
+    lvl_lok_1 = int(lvl)
+    lvl_lok_2 = int(lvl)
+    lvl_lok_3 = int(lvl)
+    
+    lvl_kill["tide_keeper"] = int(lvl)
+    lvl_kill["ice_admiral"] = int(lvl)
+    lvl_kill["smoke_admiral"] = int(lvl)
+
+    while lvl_lok_1 <= 699:
+            if now_lvl() > mastery_boss_kill_sea_2["tide_keeper"]:
+                mastery_boss_kill_sea_2["tide_keeper"] += boss_sea_2["tide_keeper"]
+                boss_kill_sea_2["tide_keeper"] += 1
+            else:
+                mastery_boss_kill_sea_2["tide_keeper"] -= now_lvl()
+                lvl_lok_1 += 1
+                lvl_kill["tide_keeper"] += 1
+                lvl = str(lvl_lok_1)
+    
+    lvl = old_lvl
+
+    while lvl_lok_2 <= 699:
+        if now_lvl() > mastery_boss_kill_sea_2["ice_admiral"]:
+            mastery_boss_kill_sea_2["ice_admiral"] += boss_sea_2["ice_admiral"]
+            boss_kill_sea_2["ice_admiral"] += 1
+        else:
+            mastery_boss_kill_sea_2["ice_admiral"] -= now_lvl()
+            lvl_lok_2 += 1
+            lvl_kill["ice_admiral"] += 1
+            lvl = str(lvl_lok_2)
+    
+    lvl = old_lvl
+
+    while lvl_lok_3 <= 699:
+        if now_lvl() > mastery_boss_kill_sea_2["smoke_admiral"]:
+            mastery_boss_kill_sea_2["smoke_admiral"] += boss_sea_2["smoke_admiral"]
+            boss_kill_sea_2["smoke_admiral"] += 1
+        else:
+            mastery_boss_kill_sea_2["smoke_admiral"] -= now_lvl()
+            lvl_lok_3 += 1
+            lvl_kill["smoke_admiral"] += 1
+            lvl = str(lvl_lok_3)
 
 class FourWindow(QWidget):
     def __init__(self):
@@ -233,16 +336,14 @@ class FourWindow(QWidget):
                 self.setWindowTitle("результаты")
                 self.text.setText(mastory_boss_sea_1())
 
-        # if sea == 2:
-        #     if mob_boss == 1:
-        #         for i in mob_sea_2.keys():
-        #             mastery_lvl_sea_2()
-        #             self.setWindowTitle("результаты")
-        #             layout = QVBoxLayout()
-        #             self.setLayout(layout)
-        #             self.text = QLabel(f"water Fighter - {mob_kill_sea_2['water_fighter']} \nSea soldier - {mob_kill_sea_2['sea_soldier']} \nSnow Lurker - {mob_kill_sea_2['snow_lurker']}")
-        #             self.text.setFont(QFont('Arial', 10)) 
-        #             layout.addWidget(self.text)
+        if sea == 2:
+            if mob_boss == 1:
+                self.setWindowTitle("результаты")
+                self.text.setText(mastory_mob_sea_2())
+            
+            if mob_boss == 2:
+                self.setWindowTitle("результаты")
+                self.text.setText(mastory_boss_sea_2())
 
 
 class ThreeWindow(QMainWindow):
