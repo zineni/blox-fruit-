@@ -56,7 +56,7 @@ mob_kill_sea_2 = {"water_fighter": 0,
 
 boss_sea_2 = {"ice_admiral": random.randint(900000,950000),
               "tide_keeper": random.randint(850000,900000),
-              "smoke_admiral": random.randint(80000,90000)
+              "smoke_admiral": random.randint(800000,900000)
               }
 
 mastery_boss_kill_sea_2 = {"ice_admiral": 0,
@@ -69,6 +69,92 @@ boss_kill_sea_2 = {"ice_admiral": 0,
                    "smoke_admiral": 0
                    }
 
+def now_lvl(): 
+        global lvl
+        global mastery_now_lvl 
+        if int(lvl) >= 1 and int(lvl) <= 99:
+            mastery_now_lvl = 70
+            for i in range(int(lvl)):
+                mastery_now_lvl += i*16
+        elif int(lvl) >=100 and int(lvl) <= 199:
+            mastery_now_lvl = 80000
+            for i in range(int(lvl)-10):
+                mastery_now_lvl += i*2
+        elif int(lvl) >=200 and int(lvl) <= 299:
+            mastery_now_lvl = 260000
+            for i in range(int(lvl)-100):
+                mastery_now_lvl += i*4           
+        elif int(lvl) >=300 and int(lvl) <= 399:
+            mastery_now_lvl = 320000
+            for i in range(int(lvl)-100):
+                mastery_now_lvl += i*5
+        elif int(lvl) >=400 and int(lvl) <= 499:
+            mastery_now_lvl = 541265
+            for i in range(int(lvl)-100):
+                mastery_now_lvl += i*6         
+        elif int(lvl) >=500 and int(lvl) <= 599:
+            mastery_now_lvl = 1015283
+            for i in range(int(lvl)-100):
+                mastery_now_lvl += i*7            
+        elif int(lvl) >=600 and int(lvl) <= 700:
+            mastery_now_lvl = 1881554
+            for i in range(int(lvl)-100):
+                mastery_now_lvl += i*8
+        return mastery_now_lvl
+
+def mastory_mob_sea_1():
+    global mastery_mob_kill
+    global lvl
+    global lvl_kill
+    global mob_sea_1
+    global kill_info
+
+    old_lvl = int(lvl)
+
+    lvl_lok_1 = int(lvl)
+    lvl_lok_2 = int(lvl)
+    lvl_lok_3 = int(lvl)
+
+    lvl_kill["gelley_captain"] = int(lvl)
+    lvl_kill["royal_soldier"] = int(lvl)
+    lvl_kill["royal_squa"] = int(lvl)
+
+    while lvl_lok_1 <= 699:
+            if now_lvl() > mastery_mob_kill["gelley_captain"]:
+                mastery_mob_kill["gelley_captain"] += mob_sea_1["gelley captain"]
+                kill_info["gelley_captain"] += 1
+            else:
+                mastery_mob_kill["gelley_captain"] -= now_lvl()
+                lvl_lok_1 += 1
+                lvl_kill["gelley_captain"] += 1
+                lvl = str(lvl_lok_1)
+
+    lvl = old_lvl
+
+    while lvl_lok_2 <= 699:
+        if now_lvl() > mastery_mob_kill["royal_soldier"]:
+            mastery_mob_kill["royal_soldier"] += mob_sea_1["royal_soldier"]
+            kill_info["royal_soldier"] += 1
+        else:
+            mastery_mob_kill["royal_soldier"] -= now_lvl()
+            lvl_lok_2 += 1
+            lvl_kill["royal_soldier"] += 1
+            lvl = str(lvl_lok_2)
+
+    lvl = old_lvl
+    
+    while lvl_lok_3 <= 699:
+        if now_lvl() > mastery_mob_kill["royal_squa"]:
+            mastery_mob_kill["royal_squa"] += mob_sea_1["royal_squa"]
+            kill_info["royal_squa"] += 1
+        else:
+            mastery_mob_kill["royal_squa"] -= now_lvl()
+            lvl_lok_3 += 1
+            lvl_kill["royal_squa"] += 1
+            lvl = str(lvl_lok_3)
+
+    return f"Gelley Captain - {kill_info['gelley_captain']} \nRoyal Soldier - {kill_info['royal_soldier']} \nRoyal Squa - {kill_info['royal_squa']}"
+
 class FourWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -77,192 +163,38 @@ class FourWindow(QWidget):
         global sea
         global mob_boss
         global mastery_new_lvl
-        
-        def now_lvl(): 
-            global lvl
-            global mastery_now_lvl 
-            if int(lvl) >= 1 and int(lvl) <= 99:
-                for i in range(int(lvl)):
-                    mastery_now_lvl += i*16
-            elif int(lvl) >=100 and int(lvl) <= 199:
-                mastery_now_lvl = 80000
-                for i in range(int(lvl)-10):
-                    mastery_now_lvl += i*2
-            elif int(lvl) >=200 and int(lvl) <= 299:
-                mastery_now_lvl = 260000
-                for i in range(int(lvl)-100):
-                    mastery_now_lvl += i*4           
-            elif int(lvl) >=300 and int(lvl) <= 399:
-                mastery_now_lvl = 320000
-                for i in range(int(lvl)-100):
-                    mastery_now_lvl += i*5
-            elif int(lvl) >=400 and int(lvl) <= 499:
-                mastery_now_lvl = 541265
-                for i in range(int(lvl)-100):
-                    mastery_now_lvl += i*6         
-            elif int(lvl) >=500 and int(lvl) <= 599:
-                mastery_now_lvl = 1015283
-                for i in range(int(lvl)-100):
-                    mastery_now_lvl += i*7            
-            elif int(lvl) >=600 and int(lvl) <= 700:
-                mastery_now_lvl = 1881554
-                for i in range(int(lvl)-100):
-                    mastery_now_lvl += i*8
-            return mastery_now_lvl
 
-        def mastery_lvl_sea_1():
-            global mastery_mob_kill
-            global lvl
-            global lvl_kill
-            global mob_sea_1
-            global kill_info
-
-            lvl_kill["gelley_captain"] = int(lvl)
-            lvl_kill["royal_soldier"] = int(lvl)
-            lvl_kill["royal_squa"] = int(lvl)
-
-            while int(lvl_kill["gelley_captain"]) <= 700:
-
-                if int(mastery_mob_kill["gelley_captain"]) < now_lvl():
-                    mastery_mob_kill["gelley_captain"] += mob_sea_1["gelley captain"]
-                    kill_info["gelley_captain"] += 1
-
-                    if int(mastery_mob_kill["gelley_captain"]) >= now_lvl():
-                        mastery_mob_kill["gelley_captain"] -= now_lvl()
-                        lvl_kill["gelley_captain"] += 1
-
-            while int(lvl_kill["royal_soldier"]) <= 700:
-                if int(mastery_mob_kill["royal_soldier"]) < now_lvl():
-                    mastery_mob_kill["royal_soldier"] += mob_sea_1["royal_soldier"]
-                    kill_info["royal_soldier"] += 1
-
-                    if int(mastery_mob_kill["royal_soldier"]) >= now_lvl():
-                        mastery_mob_kill["royal_soldier"] -= now_lvl()
-                        lvl_kill["royal_soldier"] += 1
-
-            while int(lvl_kill["royal_squa"]) <= 700:
-                if int(mastery_mob_kill["royal_squa"]) < now_lvl():
-                    mastery_mob_kill["royal_squa"] += mob_sea_1["royal_squa"]
-                    kill_info["royal_squa"] += 1
-
-                    if int(mastery_mob_kill["royal_squa"]) >= now_lvl():
-                        mastery_mob_kill["royal_squa"] -= now_lvl()
-                        lvl_kill["royal_squa"] += 1
-
-        def boss_mastery_lvl_sea_1():
-            global mastery_boss_kill
-            global lvl
-            global lvl_kill
-            global boss_sea_1
-            global boss_kill_info
-
-            lvl_kill["cyborg"] = int(lvl)
-            lvl_kill["thunder_god"] = int(lvl)
-            lvl_kill["wysper"] = int(lvl)
-
-            while int(lvl_kill["cyborg"]) <= 700:
-
-                if int(mastery_boss_kill["cyborg"]) < now_lvl():
-                    mastery_boss_kill["cyborg"] += boss_sea_1["cyborg"]
-                    boss_kill_info["cyborg"] += 1
-
-                    if int(mastery_boss_kill["cyborg"]) >= now_lvl():
-                        mastery_boss_kill["cyborg"] -= now_lvl()
-                        lvl_kill["cyborg"] += 1
-
-            while int(lvl_kill["thunder_god"]) <= 700:
-
-                if int(mastery_boss_kill["thunder_god"]) < now_lvl():
-                    mastery_boss_kill["thunder_god"] += boss_sea_1["thunder_god"]
-                    boss_kill_info["thunder_god"] += 1
-
-                    if int(mastery_boss_kill["thunder_god"]) >= now_lvl():
-                        mastery_boss_kill["thunder_god"] -= now_lvl()
-                        lvl_kill["thunder_god"] += 1
-
-            while int(lvl_kill["wysper"]) <= 700:
-
-                if int(mastery_boss_kill["wysper"]) < now_lvl():
-                    mastery_boss_kill["wysper"] += boss_sea_1["wysper"]
-                    boss_kill_info["wysper"] += 1
-
-                    if int(mastery_boss_kill["wysper"]) >= now_lvl():
-                        mastery_boss_kill["wysper"] -= now_lvl()
-                        lvl_kill["wysper"] += 1
-
-        def mastery_lvl_sea_2():
-            global mastery_mob_kill_sea_2
-            global lvl
-            global lvl_kill
-            global mob_sea_2
-            global mob_kill_sea_2
-
-            lvl_kill["water_fighter"] = int(lvl)
-            lvl_kill["sea_soldier"] = int(lvl)
-            lvl_kill["snow_lurker"] = int(lvl)
-
-            while int(lvl_kill["water_fighter"]) <= 700:
-
-                if int(mastery_mob_kill_sea_2["water_fighter"]) < now_lvl():
-                    mastery_mob_kill_sea_2["water_fighter"] += mob_sea_2["water_fighter"]
-                    mob_kill_sea_2["water_fighter"] += 1
-
-                    if int(mastery_mob_kill_sea_2["water_fighter"]) >= now_lvl():
-                        mastery_mob_kill_sea_2["water_fighter"] -= now_lvl()
-                        lvl_kill["water_fighter"] += 1
-            
-            while int(lvl_kill["sea_soldier"]) <= 700:
-
-                if int(mastery_mob_kill_sea_2["sea_soldier"]) < now_lvl():
-                    mastery_mob_kill_sea_2["sea_soldier"] += mob_sea_2["sea_soldier"]
-                    mob_kill_sea_2["sea_soldier"] += 1
-
-                    if int(mastery_mob_kill_sea_2["sea_soldier"]) >= now_lvl():
-                        mastery_mob_kill_sea_2["sea_soldier"] -= now_lvl()
-                        lvl_kill["sea_soldier"] += 1
-            
-            while int(lvl_kill["snow_lurker"]) <= 700:
-
-                if int(mastery_mob_kill_sea_2["snow_lurker"]) < now_lvl():
-                    mastery_mob_kill_sea_2["snow_lurker"] += mob_sea_2["snow_lurker"]
-                    mob_kill_sea_2["snow_lurker"] += 1
-
-                    if int(mastery_mob_kill_sea_2["snow_lurker"]) >= now_lvl():
-                        mastery_mob_kill_sea_2["snow_lurker"] -= now_lvl()
-                        lvl_kill["snow_lurker"] += 1
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        self.text = QLabel("")
+        self.text.setFont(QFont('Arial', 10)) 
+        layout.addWidget(self.text)
 
         if sea == 1:
             if mob_boss == 1:
-                for i in mob_sea_1.keys():
-                    mastery_lvl_sea_1()
-                    self.setWindowTitle("результаты")
-                    layout = QVBoxLayout()
-                    self.setLayout(layout)
-                    self.text = QLabel(f"Gelley Captain - {kill_info['gelley_captain']} \nRoyal Soldier - {kill_info['royal_soldier']} \nRoyal Squa - {kill_info['royal_squa']}")
-                    self.text.setFont(QFont('Arial', 10)) 
-                    layout.addWidget(self.text)
+                self.setWindowTitle("результаты")
+                self.text.setText(mastory_mob_sea_1())
 
+        #     if mob_boss == 2:
+        #         for i in boss_sea_1.keys():
+        #             boss_mastery_lvl_sea_1()
+        #             self.setWindowTitle("результаты")
+        #             layout = QVBoxLayout()
+        #             self.setLayout(layout)
+        #             self.text = QLabel(f"Cyborg - {boss_kill_info['cyborg']} \nThunder God - {boss_kill_info['thunder_god']} \nWysper - {boss_kill_info['wysper']}")
+        #             self.text.setFont(QFont('Arial', 10)) 
+        #             layout.addWidget(self.text)
 
-            if mob_boss == 2:
-                for i in boss_sea_1.keys():
-                    boss_mastery_lvl_sea_1()
-                    self.setWindowTitle("результаты")
-                    layout = QVBoxLayout()
-                    self.setLayout(layout)
-                    self.text = QLabel(f"Cyborg - {boss_kill_info['cyborg']} \nThunder God - {boss_kill_info['thunder_god']} \nWysper - {boss_kill_info['wysper']}")
-                    self.text.setFont(QFont('Arial', 10)) 
-                    layout.addWidget(self.text)
-
-        if sea == 2:
-            if mob_boss == 1:
-                for i in mob_sea_2.keys():
-                    mastery_lvl_sea_2()
-                    self.setWindowTitle("результаты")
-                    layout = QVBoxLayout()
-                    self.setLayout(layout)
-                    self.text = QLabel(f"water Fighter - {mob_kill_sea_2['water_fighter']} \nSea soldier - {mob_kill_sea_2['sea_soldier']} \nSnow Lurker - {mob_kill_sea_2['snow_lurker']}")
-                    self.text.setFont(QFont('Arial', 10)) 
-                    layout.addWidget(self.text)
+        # if sea == 2:
+        #     if mob_boss == 1:
+        #         for i in mob_sea_2.keys():
+        #             mastery_lvl_sea_2()
+        #             self.setWindowTitle("результаты")
+        #             layout = QVBoxLayout()
+        #             self.setLayout(layout)
+        #             self.text = QLabel(f"water Fighter - {mob_kill_sea_2['water_fighter']} \nSea soldier - {mob_kill_sea_2['sea_soldier']} \nSnow Lurker - {mob_kill_sea_2['snow_lurker']}")
+        #             self.text.setFont(QFont('Arial', 10)) 
+        #             layout.addWidget(self.text)
 
 
 class ThreeWindow(QMainWindow):
@@ -317,8 +249,8 @@ class SecondWindow(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        self.text = QLabel("                        Какой лвл mastery?")
-        self.LE = QLineEdit()
+        self.text = QLabel("                   Какой у вас лвл mastery?")
+        self.LE = QLineEdit() 
 
         self.LE.textChanged.connect(self.mastery_lvl)
 
